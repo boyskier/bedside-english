@@ -177,8 +177,12 @@
         var pause = predictionAfter(segmentIndex);
         if (pause) showPrediction(pause);
         else {
-          loadSegment(segmentIndex + 1);
-          playCurrent();
+          var nextIndex = segmentIndex + 1;
+          window.setTimeout(function () {
+            if (!shouldContinue || segmentIndex !== nextIndex - 1) return;
+            loadSegment(nextIndex);
+            playCurrent();
+          }, 350);
         }
       } else {
         shouldContinue = false;
